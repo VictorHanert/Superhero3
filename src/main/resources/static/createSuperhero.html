@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <title>You first Spring application</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" href="main.css" type="text/css" media="screen"/>
+</head>
+<body>
+<header>
+  <a href="index.html" class="home"><button id="home">Home</button></a>
+  <h1>Create a new superhero</h1>
+</header>
+<form action="/create/" method="POST">
+  <h3>Add a superhero:</h3>
+
+  <div>
+    <label for="realName">Real name:</label>
+    <input name="realName" id="realName" placeholder="Real name">
+  </div>
+  <div>
+    <label for="heroName">Hero name:</label>
+    <input name="heroName" id="heroName" placeholder="Hero name">
+  </div>
+  <div>
+    <label for="creationYear">Creation year:</label>
+    <input name="creationYear" id="creationYear" placeholder="Creation year">
+  </div>
+  <div>
+    <label for="superPower">Super power:</label>
+    <input name="superPower" id="superPower" placeholder="Super power">
+  </div>
+  <div>
+    <label for="isHuman">Is the hero a human:</label>
+    <input name="isHuman" id="isHuman" placeholder="Yes / No">
+  </div><div>
+  <label for="Power">Power (default is 1):</label>
+  <input name="power" id="power" placeholder="Power (fx 2.3)">
+</div>
+  <div>
+    <button>Add superhero</button>
+  </div>
+</form>
+
+<form action="/superhero/" method="GET">
+  <button>List superheroes</button>
+</form>
+</body>
+</html>

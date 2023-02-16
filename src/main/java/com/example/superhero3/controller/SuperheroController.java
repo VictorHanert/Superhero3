@@ -15,7 +15,6 @@ import java.util.List;
 public class SuperheroController {
 
   private Service service;
-  HttpHeaders responseHeaders = new HttpHeaders();
 
   public SuperheroController(Service service) {
     this.service = service;
@@ -29,13 +28,9 @@ public class SuperheroController {
   }
 
   @GetMapping(path="/{heroName}")
-  public ResponseEntity<String> specificSuperhero(@PathVariable String heroName) {
+  public ResponseEntity<Superhero> specificSuperhero(@PathVariable String heroName) {
     Superhero superhero = service.getSuperhero(heroName);
-    responseHeaders.set("Content-Type","text/html");
-
-    return new ResponseEntity<>(
-            "<html><body><h2>" + superhero.getHeroName() +
-                    "</h2>" + superhero + "</body></html>",responseHeaders, HttpStatus.OK);
+    return new ResponseEntity<>(superhero, HttpStatus.OK);
   }
 
   @GetMapping(path="search/{searchTerm}")
@@ -44,14 +39,14 @@ public class SuperheroController {
     return new ResponseEntity<>(superhero, HttpStatus.OK);
   }
 
-  @PostMapping("/create")
+  @PostMapping({"/create", "/create/"})
   public ResponseEntity<Superhero> createSuperhero(@RequestBody Superhero superhero) {
     Superhero newSuperhelt = service.createSuperhero(superhero.getRealName(), superhero.getHeroName(), superhero.getCreationYear(),
             superhero.getSuperPower(), superhero.isHuman(), superhero.getPower());
     return new ResponseEntity<>(newSuperhelt, HttpStatus.CREATED);
   }
 
-  @PutMapping(path = "/edit")
+  @PutMapping(path = {"/edit", "/edit/"})
   public ResponseEntity<Superhero> putMessage(@RequestBody Superhero superhero) {
     service.editSuperhero(superhero, superhero.getRealName(), superhero.getHeroName(), superhero.getCreationYear(),
             superhero.getSuperPower(), superhero.isHuman(), superhero.getPower());

@@ -14,9 +14,9 @@ public class SuperheroRepo {
     createSuperhero("Victor Hanert", "Actionman", 2001, "Hot", true, 999);
     createSuperhero("Bruce Wayne", "Batman", 1965, "Rich", true, 2);
     createSuperhero("Peter Parker", "Spider-man", 1970, "Spider-senses", true, 2.3);
-    createSuperhero("Tony Stark", "Iron-Man", 1998, "Rich", true, 1.2);
-    createSuperhero("T'Challa", "Black-Panther", 1973, "Strong and rich", true, 5.5);
-    createSuperhero("Bruce Banner", "Hulk", 1967, "Very strong", true, 3.2);
+    //createSuperhero("Tony Stark", "Iron-Man", 1998, "Rich", true, 1.2);
+    //createSuperhero("T'Challa", "Black-Panther", 1973, "Strong and rich", true, 5.5);
+    //createSuperhero("Bruce Banner", "Hulk", 1967, "Very strong", true, 3.2);
   }
 
   ArrayList<Superhero> superheroes = new ArrayList<>();
@@ -62,25 +62,28 @@ public class SuperheroRepo {
     return searchResults;
   }
 
-  public void editSuperhero(Superhero superhero, String newRealName, String newHeroName, int newCreationYear, String newSuperPower, boolean newIsHuman, double newPower) {
-    // edit the superhero
-    if (newRealName != null) {
-      superhero.setRealName(newRealName);
-    }
-    if (newHeroName != null) {
-      superhero.setHeroName(newHeroName);
-    }
-    if (newCreationYear >= 0) {
-      superhero.setCreationYear(String.valueOf(newCreationYear));
-    }
-    if (newSuperPower != null) {
-      superhero.setSuperPower(newSuperPower);
-    }
-    if (newIsHuman) {
-      superhero.setHuman(newIsHuman);
-    }
-    if (newPower >= 0) {
-      superhero.setPower(String.valueOf(newPower));
+  public void editSuperhero(Superhero editSuperhero, String newRealName, String newHeroName, int newCreationYear, String newSuperPower, boolean newIsHuman, double newPower) {
+    for (Superhero superhero : superheroes){
+      if (superhero.getHeroName().equals(editSuperhero.getHeroName())){
+      if (newRealName != null) {
+        editSuperhero.setRealName(newRealName);
+      }
+      if (newHeroName != null) {
+        editSuperhero.setHeroName(newHeroName);
+      }
+      if (newCreationYear >= 0) {
+        editSuperhero.setCreationYear(String.valueOf(newCreationYear));
+      }
+      if (newSuperPower != null) {
+        editSuperhero.setSuperPower(newSuperPower);
+      }
+      if (newIsHuman) {
+        editSuperhero.setHuman(newIsHuman);
+      }
+      if (newPower >= 0) {
+        editSuperhero.setPower(String.valueOf(newPower));
+      }
+      }
     }
   }
 }
