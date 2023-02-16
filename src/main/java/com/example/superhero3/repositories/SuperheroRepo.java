@@ -9,15 +9,8 @@ import java.util.List;
 @Repository
 public class SuperheroRepo {
 
-  ArrayList<Superhero> superheroes = new ArrayList<>();
-
-  public void createSuperhero(String realName, String heroName, int creationYear, String superPower, boolean isHuman, double power) {
-    Superhero superhero = new Superhero(realName,heroName,creationYear,superPower,isHuman, power);
-    superheroes.add(superhero);
-  }
-
   // TEST DATA
-  public void createTestData(){
+  public void superheroData() {
     createSuperhero("Victor Hanert", "Actionman", 2001, "Hot", true, 999);
     createSuperhero("Bruce Wayne", "Batman", 1965, "Rich", true, 2);
     createSuperhero("Peter Parker", "Spider-man", 1970, "Spider-senses", true, 2.3);
@@ -26,9 +19,17 @@ public class SuperheroRepo {
     createSuperhero("Bruce Banner", "Hulk", 1967, "Very strong", true, 3.2);
   }
 
+  ArrayList<Superhero> superheroes = new ArrayList<>();
+
+  public Superhero createSuperhero(String realName, String heroName, int creationYear, String superPower, boolean isHuman, double power) {
+    Superhero superhero = new Superhero(realName, heroName, creationYear, superPower, isHuman, power);
+    superheroes.add(superhero);
+    return superhero;
+  }
+
   public Superhero getSuperhero(String heroName) {
-    for (Superhero superhero : superheroes){
-      if (superhero.getHeroName().equals(heroName)){
+    for (Superhero superhero : superheroes) {
+      if (superhero.getHeroName().equals(heroName)) {
         return superhero;
       }
     }
@@ -39,6 +40,47 @@ public class SuperheroRepo {
     return new ArrayList<>(superheroes);
   }
 
-  public void editSuperhero(Superhero superhero) {
+  public List<Superhero> searchForSuperhero(String searchTerm) {
+    List<Superhero> searchResults = new ArrayList<>();
+
+    for (Superhero superhero : superheroes) {
+      String name = superhero.getHeroName().toLowerCase();
+      if (name.contains(searchTerm.toLowerCase().trim())) {
+        searchResults.add(superhero);
+      }
+    }
+    return searchResults;
+  }
+
+  public List<Superhero> deleteSuperhero(String searchTerm) {
+    List<Superhero> searchResults;
+    searchResults = searchForSuperhero(searchTerm);
+
+    for (Superhero superhero : searchResults) {
+      getSuperheroes().remove(superhero);
+    }
+    return searchResults;
+  }
+
+  public void editSuperhero(Superhero superhero, String newRealName, String newHeroName, int newCreationYear, String newSuperPower, boolean newIsHuman, double newPower) {
+    // edit the superhero
+    if (newRealName != null) {
+      superhero.setRealName(newRealName);
+    }
+    if (newHeroName != null) {
+      superhero.setHeroName(newHeroName);
+    }
+    if (newCreationYear >= 0) {
+      superhero.setCreationYear(String.valueOf(newCreationYear));
+    }
+    if (newSuperPower != null) {
+      superhero.setSuperPower(newSuperPower);
+    }
+    if (newIsHuman) {
+      superhero.setHuman(newIsHuman);
+    }
+    if (newPower >= 0) {
+      superhero.setPower(String.valueOf(newPower));
+    }
   }
 }

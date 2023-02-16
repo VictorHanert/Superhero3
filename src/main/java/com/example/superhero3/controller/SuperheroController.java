@@ -38,15 +38,29 @@ public class SuperheroController {
                     "</h2>" + superhero + "</body></html>",responseHeaders, HttpStatus.OK);
   }
 
+  @GetMapping(path="search/{searchTerm}")
+  public ResponseEntity<List<Superhero>> velkommen(@PathVariable String searchTerm) {
+    List<Superhero> superhero = service.searchForSuperhero(searchTerm);
+    return new ResponseEntity<>(superhero, HttpStatus.OK);
+  }
+
   @PostMapping("/create")
   public ResponseEntity<Superhero> createSuperhero(@RequestBody Superhero superhero) {
-    service.createSuperhero(superhero);
-    return new ResponseEntity<>(superhero, HttpStatus.OK);
+    Superhero newSuperhelt = service.createSuperhero(superhero.getRealName(), superhero.getHeroName(), superhero.getCreationYear(),
+            superhero.getSuperPower(), superhero.isHuman(), superhero.getPower());
+    return new ResponseEntity<>(newSuperhelt, HttpStatus.CREATED);
   }
 
   @PutMapping(path = "/edit")
   public ResponseEntity<Superhero> putMessage(@RequestBody Superhero superhero) {
-    service.editSuperhero(superhero);
+    service.editSuperhero(superhero, superhero.getRealName(), superhero.getHeroName(), superhero.getCreationYear(),
+            superhero.getSuperPower(), superhero.isHuman(), superhero.getPower());
     return new ResponseEntity<>(superhero, HttpStatus.OK);
+  }
+
+  @DeleteMapping(path="/delete/{heroName}")
+  public ResponseEntity<List<Superhero>> sletSuperhelt(@PathVariable String heroName){
+    List<Superhero> deleteSuperhero = service.deleteSuperhero(heroName);
+    return new ResponseEntity<>(deleteSuperhero, HttpStatus.OK);
   }
 }
