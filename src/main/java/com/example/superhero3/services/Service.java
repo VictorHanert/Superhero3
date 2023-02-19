@@ -34,8 +34,8 @@ public class Service {
     return superheroRepo.createSuperhero(realName, heroName, creationYear, superPower, isHuman, power);
   }
 
-  public void editSuperhero(Superhero superhero, String newRealName, String newHeroName, int newCreationYear, String newSuperPower, boolean newIsHuman, double newPower) {
-    superheroRepo.editSuperhero(superhero, newRealName, newHeroName, newCreationYear, newSuperPower, newIsHuman, newPower);
+  public Superhero editSuperhero(Superhero superhero){
+    return superheroRepo.editSuperhero(superhero);
   }
 
   public List<Superhero> deleteSuperhero(String searchTerm){

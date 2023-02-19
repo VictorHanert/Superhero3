@@ -14,6 +14,7 @@ public class SuperheroRepo {
     createSuperhero("Victor Hanert", "Actionman", 2001, "Hot", true, 999);
     createSuperhero("Bruce Wayne", "Batman", 1965, "Rich", true, 2);
     createSuperhero("Peter Parker", "Spider-man", 1970, "Spider-senses", true, 2.3);
+    createSuperhero("Clark Kent", "Superman", 1980, "Flying-ability", false, 2.3);
     //createSuperhero("Tony Stark", "Iron-Man", 1998, "Rich", true, 1.2);
     //createSuperhero("T'Challa", "Black-Panther", 1973, "Strong and rich", true, 5.5);
     //createSuperhero("Bruce Banner", "Hulk", 1967, "Very strong", true, 3.2);
@@ -62,28 +63,29 @@ public class SuperheroRepo {
     return searchResults;
   }
 
-  public void editSuperhero(Superhero editSuperhero, String newRealName, String newHeroName, int newCreationYear, String newSuperPower, boolean newIsHuman, double newPower) {
-    for (Superhero superhero : superheroes){
-      if (superhero.getHeroName().equals(editSuperhero.getHeroName())){
-      if (newRealName != null) {
-        editSuperhero.setRealName(newRealName);
-      }
-      if (newHeroName != null) {
+  public Superhero editSuperhero(Superhero superhero) {
+    for (Superhero editSuperhero : superheroes) {
+      if (editSuperhero.getHeroName().equalsIgnoreCase(superhero.getHeroName().toLowerCase())) {
+        String newHeroName = superhero.getHeroName();
         editSuperhero.setHeroName(newHeroName);
-      }
-      if (newCreationYear >= 0) {
+
+        String newRealName = superhero.getRealName();
+        editSuperhero.setRealName(newRealName);
+
+        int newCreationYear = superhero.getCreationYear();
         editSuperhero.setCreationYear(String.valueOf(newCreationYear));
-      }
-      if (newSuperPower != null) {
+
+        String newSuperPower = superhero.getSuperPower();
         editSuperhero.setSuperPower(newSuperPower);
-      }
-      if (newIsHuman) {
-        editSuperhero.setHuman(newIsHuman);
-      }
-      if (newPower >= 0) {
+
+        boolean newHuman = superhero.isHuman();
+        editSuperhero.setHuman(newHuman);
+
+        double newPower = superhero.getPower();
         editSuperhero.setPower(String.valueOf(newPower));
       }
-      }
+      return editSuperhero;
     }
+    return superhero;
   }
 }

@@ -14,14 +14,14 @@ import java.util.List;
 @RequestMapping("superhero")
 public class SuperheroController {
 
-  private Service service;
+  private final Service service;
 
   public SuperheroController(Service service) {
     this.service = service;
     service.createTestData();
   }
 
-  @GetMapping(path= {"", "/", "/superheroes"})
+  @GetMapping(path= {"", "/"})
   public ResponseEntity<List<Superhero>> allSuperheroes() {
     List<Superhero> superheroes = service.getSuperheroes();
     return new ResponseEntity<>(superheroes,HttpStatus.OK);
@@ -34,27 +34,26 @@ public class SuperheroController {
   }
 
   @GetMapping(path="search/{searchTerm}")
-  public ResponseEntity<List<Superhero>> velkommen(@PathVariable String searchTerm) {
+  public ResponseEntity<List<Superhero>> search(@PathVariable String searchTerm) {
     List<Superhero> superhero = service.searchForSuperhero(searchTerm);
     return new ResponseEntity<>(superhero, HttpStatus.OK);
   }
 
-  @PostMapping({"/create", "/create/"})
+  @PostMapping(path={"/create", "/create/"})
   public ResponseEntity<Superhero> createSuperhero(@RequestBody Superhero superhero) {
-    Superhero newSuperhelt = service.createSuperhero(superhero.getRealName(), superhero.getHeroName(), superhero.getCreationYear(),
+    Superhero newSuperhero = service.createSuperhero(superhero.getRealName(), superhero.getHeroName(), superhero.getCreationYear(),
             superhero.getSuperPower(), superhero.isHuman(), superhero.getPower());
-    return new ResponseEntity<>(newSuperhelt, HttpStatus.CREATED);
+    return new ResponseEntity<>(newSuperhero, HttpStatus.OK);
   }
 
-  @PutMapping(path = {"/edit", "/edit/"})
-  public ResponseEntity<Superhero> putMessage(@RequestBody Superhero superhero) {
-    service.editSuperhero(superhero, superhero.getRealName(), superhero.getHeroName(), superhero.getCreationYear(),
-            superhero.getSuperPower(), superhero.isHuman(), superhero.getPower());
-    return new ResponseEntity<>(superhero, HttpStatus.OK);
+  @PutMapping(path ="/edit")
+  public ResponseEntity<Superhero> editSuperhero(@RequestBody Superhero superhero) {
+    Superhero editSuperhero = service.editSuperhero(superhero);
+    return new ResponseEntity<>(editSuperhero, HttpStatus.OK);
   }
 
   @DeleteMapping(path="/delete/{heroName}")
-  public ResponseEntity<List<Superhero>> sletSuperhelt(@PathVariable String heroName){
+  public ResponseEntity<List<Superhero>> deleteSuperhelt(@PathVariable String heroName){
     List<Superhero> deleteSuperhero = service.deleteSuperhero(heroName);
     return new ResponseEntity<>(deleteSuperhero, HttpStatus.OK);
   }
